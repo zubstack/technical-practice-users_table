@@ -1,0 +1,15 @@
+.options__container {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.action__button:hover {
+  background-color: rgb(207, 207, 207);
+}
+
+.action__button--active {
+  background-color: rgb(14, 14, 14);
+  color: white;
+}
