@@ -7,6 +7,7 @@ function Table({
   sortByLastName,
   sortByCountry,
   coloredRows,
+  sortedByCountry,
 }) {
   if (!users) return;
   // console.log("user", users);
@@ -19,7 +20,15 @@ function Table({
           <th onClick={sortByName}>Name</th>
 
           <th onClick={sortByLastName}>Lastname</th>
-          <th onClick={sortByCountry}>Location</th>
+          <th
+            onClick={() => {
+              if (!sortedByCountry) {
+                sortByCountry();
+              }
+            }}
+          >
+            Location
+          </th>
           <th>Actions</th>
         </tr>
       </thead>

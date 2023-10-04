@@ -7,7 +7,7 @@ function App() {
   // NOTE: useRef is to save properly the original state. (Preserva un valor entre renderizados)
   const originalState = useRef([]);
   const [users, setUsers] = useState([]);
-  const [searchedCountry, setSearchedCountry] = useState("");
+  const [searchedCountry, setSearchedCountry] = useState(null);
   const [coloredRows, setColoredRows] = useState(false);
   const [sortedByCountry, setSortedByCountry] = useState(false);
 
@@ -19,6 +19,7 @@ function App() {
         originalState.current = res.results;
       });
   }, []);
+
   function toggleColoredRows() {
     setColoredRows(!coloredRows);
   }
@@ -35,22 +36,19 @@ function App() {
   }
 
   function sortByName() {
-    const usersToSort = [...users];
-    const usersSorted = usersToSort.sort((a, b) =>
+    const usersSorted = [...users].sort((a, b) =>
       a.name.first.localeCompare(b.name.first)
     );
     setUsers(usersSorted);
   }
   function sortByLastName() {
-    const usersToSort = [...users];
-    const usersSorted = usersToSort.sort((a, b) =>
+    const usersSorted = [...users].sort((a, b) =>
       a.name.last.localeCompare(b.name.last)
     );
     setUsers(usersSorted);
   }
 
   function removeUser(id) {
-    // console.log(id);
     const newList = users.filter((user) => user.email !== id);
     setUsers(newList);
   }
@@ -87,6 +85,7 @@ function App() {
         sortByCountry={sortByCountry}
         removeUser={removeUser}
         coloredRows={coloredRows}
+        sortedByCountry={sortedByCountry}
       />
     </div>
   );
