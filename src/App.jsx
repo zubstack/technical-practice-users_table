@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Table from "./components/Table";
 import Options from "./components/Options";
 
 function App() {
+  // NOTE: useRef is to save properly the original state. (Preserva un valor entre renderizados)
+  const originalState = useRef([]);
   const [users, setUsers] = useState([]);
-  const [originalState, setOriginalState] = useState([]);
   const [searchedCountry, setSearchedCountry] = useState("");
   const [coloredRows, setColoredRows] = useState(false);
   const [sortedByCountry, setSortedByCountry] = useState(false);
@@ -15,7 +16,7 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setUsers(res.results);
-        setOriginalState(res.results);
+        originalState.current = res.results;
       });
   }, []);
   function toggleColoredRows() {
@@ -55,7 +56,7 @@ function App() {
   }
 
   function resetOriginalState() {
-    setUsers(originalState);
+    setUsers(originalState.current);
     setSortedByCountry(false);
   }
 
